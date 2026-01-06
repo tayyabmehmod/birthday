@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Happy Birthday Ehtisham 🎉</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+/* Background */
+body{
+  margin:0;
+  height:100vh;
+  background:radial-gradient(circle,#02050f,#000);
+  color:white;
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+/* Dots */
+.dot{
+ position:absolute;
+ width:6px;
+ height:6px;
+ background:#0ff;
+ border-radius:50%;
+ opacity:.7;
+ animation: float 7s linear infinite;
+}
+@keyframes float{
+ to{transform:translateY(-110vh);opacity:0;}
+}
+
+/* Hearts */
+.heart{
+ position:fixed;
+ bottom:-20px;
+ animation: rise 7s linear infinite;
+ filter: drop-shadow(0 0 10px #ff00ff);
+}
+@keyframes rise{
+ to{transform:translateY(-110vh) translateX(-25px);opacity:0;}
+}
+
+/* Card */
+.card{
+ width:85%;
+ max-width:520px;
+ text-align:center;
+ padding:38px;
+ border-radius:25px;
+ background:rgba(255,255,255,0.04);
+ backdrop-filter:blur(10px);
+ border:1px solid rgba(255,255,255,.2);
+ box-shadow:0 0 28px cyan;
+ animation: pop 1.2s;
+}
+@keyframes pop{
+ from{transform:scale(.8);opacity:0;}
+ to{transform:scale(1);opacity:1;}
+}
+
+/* Title */
+.title{
+ font-size:30px;
+ color:#0ff;
+ text-shadow:0 0 25px cyan,0 0 40px #ff00ff;
+ min-height:60px;
+}
+.cursor{
+ border-right:3px solid #0ff;
+ animation: blink .8s infinite;
+}
+@keyframes blink{
+ 50%{border-color:transparent;}
+}
+
+.msg{
+ font-size:17px;
+ color:#cfd9e6;
+ margin-top:8px;
+}
+
+/* Buttons */
+button{
+ margin-top:15px;
+ padding:12px 40px;
+ border:none;
+ border-radius:35px;
+ background:linear-gradient(45deg,#ff00ff,#00ffff);
+ color:white;
+ font-size:17px;
+ cursor:pointer;
+ box-shadow:0 0 35px cyan;
+}
+button:hover{
+ transform:scale(1.06);
+}
+
+.step{ display:none; }
+
+/* Curtain Screen */
+#curtainScreen{
+ display:none;
+ text-align:center;
+}
+
+.readyText{
+ font-size:32px;
+ color:#0ff;
+ margin-bottom:15px;
+ text-shadow:0 0 25px cyan;
+}
+
+/* Curtains */
+.curtain{
+ position:fixed;
+ top:0;
+ width:50%;
+ height:100vh;
+ background:#111;
+ z-index:999;
+ transition:1.5s ease;
+ display:none;
+}
+
+.leftCurtain{ left:0; border-right:4px solid cyan; }
+.rightCurtain{ right:0; border-left:4px solid cyan; }
+
+.openL{ transform:translateX(-100%); }
+.openR{ transform:translateX(100%); }
+
+/* COUNTDOWN */
+#countdownBox{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ background:rgba(0,0,0,.9);
+ display:none;
+ align-items:center;
+ justify-content:center;
+ z-index:9999;
+}
+
+#countNumber{
+ font-size:120px;
+ color:#0ff;
+ text-shadow:0 0 30px cyan,0 0 60px #ff00ff;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- CURTAINS -->
+<div class="curtain leftCurtain" id="leftC"></div>
+<div class="curtain rightCurtain" id="rightC"></div>
+
+<!-- COUNTDOWN -->
+<div id="countdownBox">
+ <div id="countNumber">3</div>
+</div>
+
+<!-- STEP 1 -->
+<div class="card step" id="step1" style="display:block">
+<h1 class="title">
+ <span id="typeText"></span><span class="cursor"></span>
+</h1>
+<p class="msg">A little surprise… from someone who truly appreciates you 😎💙</p>
+<button onclick="nextStep(2)">Celebrate 🎊</button>
+</div>
+
+<!-- STEP 2 -->
+<div class="card step" id="step2">
+<h1 class="title">Wait… 😏</h1>
+<p class="msg">Do you REALLY want to see<br>what I made for you?</p>
+<button onclick="nextStep(3)">YES! I want to see 😍</button>
+<button onclick="nextStep(3)">Of course 🤩</button>
+</div>
+
+<!-- STEP 3 -->
+<div class="card step" id="step3">
+<h1 class="title">Are you SURE? 😼</h1>
+<p class="msg">Because once you see it…<br>Your heart may melt 💙😎</p>
+<button onclick="nextStep(4)">I’m totally ready 😎</button>
+<button onclick="nextStep(4)">Bring it on 🔥</button>
+</div>
+
+<!-- STEP 4 -->
+<div class="card step" id="step4">
+<h1 class="title">Last Question 🙈</h1>
+<p class="msg">Promise you won't cry? 😂💙</p>
+<button onclick="showCurtain()">I promise 😂</button>
+<button onclick="showCurtain()">No promises 😭💙</button>
+</div>
+
+<!-- READY SCREEN -->
+<div class="card" id="curtainScreen">
+<h1 class="readyText">Are You Ready? 😎💙</h1>
+<p class="msg">Because something VERY special is coming…</p>
+<button onclick="startCountdown()">YES I'M READY 😍</button>
+</div>
+
+
+<script>
+
+/* Step Navigation */
+function nextStep(n){
+ document.querySelectorAll(".step").forEach(s=>s.style.display="none");
+ document.getElementById("step"+n).style.display="block";
+}
+
+/* Show Ready Page */
+function showCurtain(){
+ document.querySelectorAll(".step").forEach(s=>s.style.display="none");
+ document.getElementById("curtainScreen").style.display="block";
+}
+
+/* COUNTDOWN FLOW */
+function startCountdown(){
+
+  // hide ready card
+  document.getElementById("curtainScreen").style.display = "none";
+
+  // show countdown
+  document.getElementById("countdownBox").style.display="flex";
+
+  let count = 3;
+  const display = document.getElementById("countNumber");
+
+  let timer = setInterval(()=>{
+    count--;
+    display.innerText = count;
+
+    if(count === 0){
+      clearInterval(timer);
+
+      // Small pause before curtain
+      display.innerText = "💙";
+
+      setTimeout(()=>{
+        document.getElementById("countdownBox").style.display="none";
+        openCurtain();
+      },400);
+    }
+
+  },1000);
+}
+
+/* Curtain Animation + Redirect */
+function openCurtain(){
+ document.getElementById("leftC").style.display="block";
+ document.getElementById("rightC").style.display="block";
+
+ setTimeout(()=>{
+  document.getElementById("leftC").classList.add("openL");
+  document.getElementById("rightC").classList.add("openR");
+ },50);
+
+ setTimeout(()=>{
+  window.location.href="gallery.html";
+ },1700);
+}
+
+/* Typing */
+const text = "Happy Birthday Ehtisham";
+let i = 0;
+function typing(){
+ if(i < text.length){
+   document.getElementById("typeText").innerHTML += text.charAt(i);
+   i++;
+   setTimeout(typing,120);
+ }
+}
+typing();
+
+/* Dots */
+for(let i=0;i<40;i++){
+ let s=document.createElement("div");
+ s.className="dot";
+ s.style.left=Math.random()*100+"%";
+ s.style.top="110vh";
+ s.style.animationDuration=(4+Math.random()*4)+"s";
+ document.body.appendChild(s);
+}
+
+/* Hearts */
+setInterval(()=>{
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="💙";
+ h.style.left=Math.random()*100+"%";
+ h.style.fontSize=(18+Math.random()*24)+"px";
+ h.style.animationDuration=(5+Math.random()*4)+"s";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),7000);
+},700);
+
+</script>
+
+</body>
+</html>

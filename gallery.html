@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Birthday Surprise</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+/* Background */
+body{
+  margin:0;
+  background:radial-gradient(circle,#040d1c,#000);
+  color:white;
+  font-family:'Poppins',sans-serif;
+  text-align:center;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow-y:auto;
+}
+
+/* Floating Light Particles */
+.light{
+  position:fixed;
+  width:6px;
+  height:6px;
+  background:#0ff;
+  border-radius:50%;
+  opacity:0.7;
+  animation: float 7s linear infinite;
+}
+@keyframes float{
+  to{transform:translateY(-110vh);opacity:0;}
+}
+
+/* ❤️ Floating Hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  animation: rise 6s linear infinite;
+  filter: drop-shadow(0 0 10px #ff00ff);
+}
+@keyframes rise{
+  to{
+    transform:translateY(-110vh) translateX(-20px);
+    opacity:0;
+  }
+}
+
+/* Header */
+h1{
+  margin-top:18px;
+  font-size:28px;
+  letter-spacing:1px;
+  color:#0ff;
+  text-shadow:0 0 25px cyan,0 0 70px #ff00ff;
+}
+.subtitle{
+  font-size:15px;
+  color:#ccc;
+  margin-top:-5px;
+}
+
+/* Decorative Line */
+.line{
+  width:200px;
+  height:3px;
+  background:linear-gradient(90deg,#ff00ff,#00ffff);
+  margin:8px auto 10px;
+  border-radius:20px;
+}
+
+/* GLASS Gallery Frame */
+.galleryBox{
+  width:95%;
+  margin:auto;
+  margin-top:8px;
+  border-radius:25px;
+  padding:15px;
+  border:2px solid rgba(255,255,255,.3);
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(12px);
+  box-shadow:0 0 40px cyan;
+}
+
+/* GRID */
+.gallery{
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-auto-rows:1fr;
+  gap:12px;
+}
+@media(max-width:700px){
+  .gallery{
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+/* IMAGES */
+.gallery img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:18px;
+  box-shadow:0 0 18px #00ffff8f;
+  transition:.45s;
+}
+
+/* Hover */
+.gallery img:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 35px #ff00ffe1;
+}
+
+/* FOOTER */
+.footer{
+  margin-top:14px;
+  padding:16px 0 22px 0;
+  background:linear-gradient(45deg,rgba(255,0,255,.15),rgba(0,255,255,.15));
+  border-top:1px solid rgba(255,255,255,.2);
+  backdrop-filter:blur(8px);
+}
+
+.text{
+  font-size:18px;
+  font-weight:500;
+  margin:0;
+}
+
+/* BUTTON */
+button{
+  margin-top:10px;
+  padding:12px 38px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#ff00ff,#00ffff);
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+  box-shadow:0 0 40px cyan;
+}
+button:hover{
+  transform:scale(1.08);
+}
+
+/* 🎵 Music Floating Button */
+.musicBtn{
+  position:fixed;
+  top:15px;
+  right:15px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid cyan;
+  padding:10px 14px;
+  border-radius:50%;
+  font-size:20px;
+  cursor:pointer;
+  box-shadow:0 0 20px cyan;
+}
+.musicBtn:hover{
+  transform:scale(1.1);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Floating Lights -->
+<script>
+for(let i=0;i<30;i++){
+ let s=document.createElement("div");
+ s.className="light";
+ s.style.left=Math.random()*100+"%";
+ s.style.top="110vh";
+ s.style.animationDuration=(4+Math.random()*4)+"s";
+ document.body.appendChild(s);
+}
+</script>
+
+<!-- Floating Hearts -->
+<script>
+setInterval(()=>{
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="💙";
+ h.style.left=Math.random()*100+"%";
+ h.style.fontSize=(16+Math.random()*24)+"px";
+ h.style.animationDuration=(4+Math.random()*4)+"s";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),7000);
+},700);
+</script>
+
+<!-- 🎵 MUSIC -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2021/12/22/audio_6c8d9d63f1.mp3">
+</audio>
+
+<!-- Music Button -->
+<div class="musicBtn" onclick="playMusic()">🎵</div>
+
+<script>
+function playMusic(){
+  const music = document.getElementById("music");
+  music.muted = false;
+  music.volume = 1.0;
+  music.play().catch(()=>{
+      alert("Tap again to enable sound 🎶");
+  });
+}
+</script>
+
+<h1>🎉 Happy Birthday King 😎 — Ehtisham 💙</h1>
+<p class="subtitle">A gallery full of moments… because you deserve to be celebrated ✨</p>
+<div class="line"></div>
+
+<div class="galleryBox">
+<div class="gallery">
+
+  <!-- Replace with Real Images -->
+  <img src="IMAGE1.jpeg">
+  <img src="IMAGE2.jpeg">
+  <img src="IMAGE3.jpeg">
+  <img src="IMAGE4.jpeg">
+  <img src="IMAGE5.jpeg">
+  <img src="IMAGE6.jpeg">
+
+</div>
+</div>
+
+<div class="footer">
+<p class="text">
+You’re not just special today… You’re special always 💙
+</p>
+
+<button onclick="gotoWishes()">One last thing....💙</button>
+</div>
+
+<script>
+function gotoWishes(){
+  window.location.href="wishes.html";
+}
+</script>
+
+</body>
+</html>
